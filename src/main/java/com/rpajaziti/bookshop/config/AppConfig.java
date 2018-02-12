@@ -43,9 +43,9 @@ public class AppConfig extends WebMvcConfigurationSupport {
     public ComboPooledDataSource myDataSource() throws PropertyVetoException {
         ComboPooledDataSource bean = new ComboPooledDataSource();
         bean.setDriverClass("com.mysql.cj.jdbc.Driver");
-        bean.setJdbcUrl(dbUrl);
-        bean.setUser(dbUsername);
-        bean.setPassword(dbPassword);
+        bean.setJdbcUrl("url");//should write the datasource data's as string otherwise using the injected values would fail
+        bean.setUser("username");
+        bean.setPassword("password");
         return bean;
     }
 

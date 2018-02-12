@@ -25,7 +25,6 @@ public class BookController {
     @GetMapping(value = "{id}", produces = "application/json")
     public ResponseEntity<Book> getBookById(@PathVariable("id") String id) {
         return new ResponseEntity<>(bookService.getBook(id), HttpStatus.OK);
-
     }
 
     @GetMapping(value = "/search", produces = "application/json")
