@@ -1,0 +1,2 @@
+ALTER TABLE `book_shop`.`book`
+CHANGE COLUMN `isbn` `isbn` VARCHAR(45) NULL DEFAULT NULL ;

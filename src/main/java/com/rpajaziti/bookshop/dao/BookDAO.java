@@ -12,5 +12,5 @@ public interface BookDAO {
 
     Book getBookById(String id);
 
-    List<Book> searchBook(String name);
+    List<Book> searchBook(String name, String isbn, String categoryId);
 }

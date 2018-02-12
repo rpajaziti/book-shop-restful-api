@@ -8,7 +8,7 @@ public interface BookService {
 
     List<Book> getBooks();
 
-    List<Book> searchBooks(String q);
+    List<Book> searchBooks(String q, String isbn, String categoryId);
 
     Book saveOrUpdateBook(Book book);
 

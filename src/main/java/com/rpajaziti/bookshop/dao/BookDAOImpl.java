@@ -45,16 +45,22 @@ public class BookDAOImpl implements BookDAO {
     }
 
     @Override
-    public List<Book> searchBook(String q) {
+    public List<Book> searchBook(String q, String isbn, String categoryId) {
         Session currentSession = sessionFactory.getCurrentSession();
 
         Query<Book> theQuery =
-                currentSession.createQuery("FROM Book WHERE name LIKE :name\n" +
-                        "OR isbn = :isbn\n" +
+                currentSession.createQuery("FROM Book WHERE ((:name IS NULL OR name LIKE :name) OR author LIKE :name)\n" +
+                        "AND (:isbn IS NULL OR isbn = :isbn)\n" +
+                        "AND (:category_id IS NULL OR category_id = :category_id)\n" +
                         " ORDER BY name", Book.class);
+        if (q == null) {
+            theQuery.setParameter("name", null);
+        } else {
+            theQuery.setParameter("name", "%" + q + "%");
+        }
 
-        theQuery.setParameter("name", "%" + q);
-        theQuery.setParameter("isbn", q);
+        theQuery.setParameter("isbn", isbn);
+        theQuery.setParameter("category_id", categoryId);
 
         return theQuery.getResultList();
     }

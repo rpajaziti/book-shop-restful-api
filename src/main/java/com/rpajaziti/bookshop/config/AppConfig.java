@@ -28,7 +28,6 @@ import java.util.Properties;
 @EnableTransactionManagement
 @Configuration
 @ComponentScan(basePackages = {"com.rpajaziti.bookshop"})
-@PropertySource(value = {"classpath:db.properties"})
 public class AppConfig extends WebMvcConfigurationSupport {
 
     @Value("${spring.db.driverClassName}")
@@ -92,7 +91,6 @@ public class AppConfig extends WebMvcConfigurationSupport {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(messageConverter());
-        //addDefaultHttpMessageConverters(converters);
     }
 
     @Override

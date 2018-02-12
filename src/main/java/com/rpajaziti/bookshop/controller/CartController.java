@@ -23,12 +23,12 @@ public class CartController {
         this.cartService = cartService;
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/json")
+    @GetMapping(value = "{id}", produces = "application/json")
     public ResponseEntity<Cart> getCartById(@PathVariable("id") String id) {
         return new ResponseEntity<>(cartService.getCart(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json")
+    @PostMapping(value = "", consumes = "application/json")
     public ResponseEntity<?> saveCart(@RequestBody Cart cart) {
 
         cart = cartService.saveCart(cart);
@@ -38,7 +38,7 @@ public class CartController {
         return new ResponseEntity<>(new ResponseMessage().setMessage("Bad Request."), HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = "application/json")
+    @PutMapping(value = "{id}", consumes = "application/json")
     public ResponseEntity<ResponseMessage> updateCart(@PathVariable("id") String id,
                                                       @RequestBody Cart cart) {
         if (cart.getId() == null) {
@@ -47,8 +47,7 @@ public class CartController {
         String result = cartService.updateCart(cart);
         if (result == null) {
             return new ResponseEntity<>(new ResponseMessage().setMessage("Updated Successfully."), HttpStatus.OK);
-
         }
-        return new ResponseEntity<>(new ResponseMessage().setMessage("Bad Request."), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ResponseMessage().setMessage(result), HttpStatus.BAD_REQUEST);
     }
 }

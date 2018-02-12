@@ -38,7 +38,7 @@ public class CartDetailServiceImpl implements CartDetailService {
     public CartDetail saveOrUpdateCartDetail(CartDetail cartDetail) {
         Book book = bookDAO.getBookById(cartDetail.getBookId());
 
-        if (book.getQuantity() - cartDetail.getQuantity() <= 0) {
+        if (book.getQuantity() - cartDetail.getQuantity() < 0) {
             return null;
         }
 

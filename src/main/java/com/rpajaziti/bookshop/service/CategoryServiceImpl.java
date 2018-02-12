@@ -27,6 +27,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public Category saveOrUpdateCategory(Category category) {
+        categoryDAO.saveOrUpdateCategory(category);
         return category;
     }
 

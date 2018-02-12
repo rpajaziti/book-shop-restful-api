@@ -34,7 +34,8 @@ public class CartServiceImpl implements CartService {
             Book book = bookDAO.getBookById(cartDetail.getBookId());
 
             if (cartDetail.getPrice() == null) {
-                cartDetail.setPrice(book.getPrice() * cartDetail.getQuantity());
+                cartDetail.setPrice(book.getPrice());
+                cartDetail.setTotal(book.getPrice() * cartDetail.getQuantity());
             }
 
             totalPrice += cartDetail.getPrice();
@@ -87,6 +88,8 @@ public class CartServiceImpl implements CartService {
         if (cart.getTotalPrice() == null) {
             cart.setTotalPrice(totalPrice);
         }
+
+        cartDAO.updateCart(cart);
 
         return null;
     }

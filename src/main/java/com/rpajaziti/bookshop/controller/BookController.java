@@ -22,29 +22,30 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/json")
+    @GetMapping(value = "{id}", produces = "application/json")
     public ResponseEntity<Book> getBookById(@PathVariable("id") String id) {
         return new ResponseEntity<>(bookService.getBook(id), HttpStatus.OK);
 
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<List<Book>> searchBook(@RequestParam("q") String q) {
-        return new ResponseEntity<>(bookService.searchBooks(q), HttpStatus.OK);
+    @GetMapping(value = "/search", produces = "application/json")
+    public ResponseEntity<List<Book>> searchBook(@RequestParam(value = "q", required = false) String q,
+                                                 @RequestParam(value = "isbn", required = false) String isbn,
+                                                 @RequestParam(value = "category_id", required = false) String categoryId) {
+        return new ResponseEntity<>(bookService.searchBooks(q, isbn, categoryId), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public List<Book> getAllBooks() {
         return bookService.getBooks();
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Book> saveBook(@RequestBody Book book) {
         return new ResponseEntity<>(bookService.saveOrUpdateBook(book), HttpStatus.CREATED);
-
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
+    @PutMapping(value = "{id}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<ResponseMessage> updateBook(@PathVariable("id") String id,
                                                       @RequestBody Book book) {
         if (book.getId() == null) {

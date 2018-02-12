@@ -21,22 +21,22 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/json")
+    @GetMapping(value = "{id}", produces = "application/json")
     public ResponseEntity<Category> getCategoryById(@PathVariable("id") String id) {
         return new ResponseEntity<>(categoryService.getCategory(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public ResponseEntity<List<Category>> getCategories() {
         return new ResponseEntity<>(categoryService.getCategories(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json")
+    @PostMapping(value = "", consumes = "application/json")
     public ResponseEntity<Category> saveCategory(@RequestBody Category category) {
         return new ResponseEntity<>(categoryService.saveOrUpdateCategory(category), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = "application/json")
+    @PutMapping(value = "{id}", consumes = "application/json")
     public ResponseEntity<ResponseMessage> updateCategory(@PathVariable("id") String id,
                                                           @RequestBody Category category) {
         if (category.getId() == null) {

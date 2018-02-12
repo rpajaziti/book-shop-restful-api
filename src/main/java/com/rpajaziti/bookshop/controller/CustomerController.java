@@ -21,17 +21,17 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/json")
+    @GetMapping(value = "{id}", produces = "application/json")
     public ResponseEntity<Customer> getCustomerById(@PathVariable("id") String id) {
         return new ResponseEntity<>(customerService.getCustomer(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public ResponseEntity<List<Customer>> getAllCustomers() {
         return new ResponseEntity<>(customerService.getCustomers(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json")
+    @PostMapping(value = "", consumes = "application/json")
     public ResponseEntity<?> saveCustomer(@RequestBody Customer customer) {
         customer = customerService.saveOrUpdateCustomer(customer);
         if (customer == null) {
@@ -41,7 +41,7 @@ public class CustomerController {
         return new ResponseEntity<>(customer, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = "application/json")
+    @PutMapping(value = "{id}", consumes = "application/json")
     public ResponseEntity<ResponseMessage> updateCustomer(@PathVariable("id") String id,
                                                           @RequestBody Customer customer) {
         if (customer.getId() == null) {

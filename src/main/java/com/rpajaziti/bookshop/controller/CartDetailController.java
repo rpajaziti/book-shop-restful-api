@@ -20,13 +20,13 @@ public class CartDetailController {
         this.cartDetailService = cartDetailService;
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/json")
+    @GetMapping(value = "{id}", produces = "application/json")
     public ResponseEntity<CartDetail> getCartDetailById(@PathVariable("id") String id) {
         return new ResponseEntity<>(cartDetailService.getCartDetail(id), HttpStatus.OK);
 
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json")
+    @PostMapping(value = "", consumes = "application/json")
     public ResponseEntity<?> saveCartDetail(@RequestBody CartDetail cartDetail) {
         cartDetail.setCart(new Cart());
         cartDetail.getCart().setId(cartDetail.getCartId());
@@ -37,7 +37,7 @@ public class CartDetailController {
         return new ResponseEntity<>(cartDetail, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = "application/json")
+    @PutMapping(value = "{id}", consumes = "application/json")
     public ResponseEntity<ResponseMessage> updateCartDetail(@PathVariable("id") String id,
                                                             @RequestBody CartDetail cartDetail) {
         if (cartDetail.getId() == null) {
