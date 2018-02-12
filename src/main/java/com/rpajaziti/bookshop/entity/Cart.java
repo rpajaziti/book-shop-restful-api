@@ -8,14 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "cart")
-public class Cart {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "uuid")
-    @GenericGenerator(name = "uuid",
-            strategy = "com.rpajaziti.bookshop.custom.IdGenerator")
-    @Column(name = "id")
-    private String id;
-
+public class Cart extends BaseEntity {
     @NotNull(message = "customerId column is required")
     @Column(name = "customer_id")
     private String customerId;
@@ -35,14 +28,6 @@ public class Cart {
     private List<CartDetail> cartDetails;
 
     public Cart() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getCustomerId() {
@@ -88,7 +73,7 @@ public class Cart {
     @Override
     public String toString() {
         return "Cart{" +
-                "id=" + id +
+                "id=" + this.getId() +
                 ", customerId='" + customerId + '\'' +
                 ", total=" + totalPrice +
                 ", status='" + status + '\'' +

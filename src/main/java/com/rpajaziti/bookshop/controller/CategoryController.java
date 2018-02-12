@@ -36,9 +36,12 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.saveOrUpdateCategory(category), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT, consumes = "application/json")
-    public ResponseEntity<ResponseMessage> updateCategory(@RequestBody Category category) {
-
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = "application/json")
+    public ResponseEntity<ResponseMessage> updateCategory(@PathVariable("id") String id,
+                                                          @RequestBody Category category) {
+        if (category.getId() == null) {
+            category.setId(id);
+        }
         categoryService.saveOrUpdateCategory(category);
 
         return new ResponseEntity<>(new ResponseMessage().setMessage("Updated Successfully"), HttpStatus.OK);

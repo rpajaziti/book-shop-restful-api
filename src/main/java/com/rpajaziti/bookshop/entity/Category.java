@@ -6,27 +6,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "category")
-public class Category {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "uuid")
-    @GenericGenerator(name = "uuid",
-            strategy = "com.rpajaziti.bookshop.custom.IdGenerator")
-    @Column(name = "id")
-    private String id;
+public class Category extends BaseEntity {
 
     @Column(name = "name")
     private String name;
-
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
 
     public String getName() {
         return name;
@@ -39,7 +22,7 @@ public class Category {
     @Override
     public String toString() {
         return "Category{" +
-                "id=" + id +
+                "id=" + this.getId() +
                 ", name='" + name + '\'' +
                 '}';
     }

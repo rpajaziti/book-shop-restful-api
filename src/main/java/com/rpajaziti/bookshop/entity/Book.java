@@ -11,13 +11,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "book")
-public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "uuid")
-    @GenericGenerator(name = "uuid",
-            strategy = "com.rpajaziti.bookshop.custom.IdGenerator")
-    @Column(name = "id")
-    private String id;
+public class Book extends BaseEntity {
 
     @Column(name = "name")
     private String name;
@@ -53,14 +47,6 @@ public class Book {
     private String categoryId;
 
     public Book() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -138,7 +124,7 @@ public class Book {
     @Override
     public String toString() {
         return "Book{" +
-                "id=" + id +
+                "id=" + this.getId() +
                 ", name='" + name + '\'' +
                 ", isbn='" + isbn + '\'' +
                 ", author='" + author + '\'' +

@@ -31,7 +31,7 @@ public class CartController {
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<?> saveCart(@RequestBody Cart cart) {
 
-        cartService.saveCart(cart);
+        cart = cartService.saveCart(cart);
         if (cart != null) {
             return new ResponseEntity<>(cart, HttpStatus.CREATED);
         }

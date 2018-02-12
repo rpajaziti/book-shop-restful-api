@@ -31,11 +31,10 @@ public class CartDetailController {
         cartDetail.setCart(new Cart());
         cartDetail.getCart().setId(cartDetail.getCartId());
         cartDetail = cartDetailService.saveOrUpdateCartDetail(cartDetail);
-        if (cartDetail != null) {
-            return new ResponseEntity<>(cartDetail, HttpStatus.CREATED);
-
+        if (cartDetail == null) {
+            return new ResponseEntity<>(new ResponseMessage().setMessage("Bad Request."), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(new ResponseMessage().setMessage("Bad Request."), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(cartDetail, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = "application/json")

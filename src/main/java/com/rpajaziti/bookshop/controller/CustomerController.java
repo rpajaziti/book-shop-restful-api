@@ -32,13 +32,23 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) {
-        return new ResponseEntity<>(customerService.saveOrUpdateCustomer(customer), HttpStatus.CREATED);
+    public ResponseEntity<?> saveCustomer(@RequestBody Customer customer) {
+        customer = customerService.saveOrUpdateCustomer(customer);
+        if (customer == null) {
+            return new ResponseEntity<>(new ResponseMessage().setMessage("Bad Request"), HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(customer, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT, consumes = "application/json")
-    public ResponseEntity<ResponseMessage> updateCustomer(@RequestBody Customer customer) {
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = "application/json")
+    public ResponseEntity<ResponseMessage> updateCustomer(@PathVariable("id") String id,
+                                                          @RequestBody Customer customer) {
+        if (customer.getId() == null) {
+            customer.setId(id);
+        }
         customerService.saveOrUpdateCustomer(customer);
-        return new ResponseEntity<>(new ResponseMessage().setMessage("Updated Successfully"), HttpStatus.OK);
+
+        return new ResponseEntity<>(new ResponseMessage().setMessage("Updated Successfully."), HttpStatus.OK);
     }
 }

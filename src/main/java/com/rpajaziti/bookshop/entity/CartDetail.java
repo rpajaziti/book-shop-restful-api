@@ -7,13 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "cart_detail")
-public class CartDetail {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "uuid")
-    @GenericGenerator(name = "uuid",
-            strategy = "com.rpajaziti.bookshop.custom.IdGenerator")
-    @Column(name = "id")
-    private String id;
+public class CartDetail extends BaseEntity {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST
@@ -35,14 +29,6 @@ public class CartDetail {
 
     @Column(name = "quantity")
     private int quantity;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public Cart getCart() {
         return cart;
@@ -95,7 +81,7 @@ public class CartDetail {
     @Override
     public String toString() {
         return "CartDetail{" +
-                "id=" + id +
+                "id=" + this.getId() +
                 ", cart=" + cart +
                 ", bookId=" + bookId +
                 ", total=" + total +

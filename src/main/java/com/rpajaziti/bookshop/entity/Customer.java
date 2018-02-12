@@ -9,14 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "customer")
-public class Customer {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid")
-    @GenericGenerator(name = "uuid",
-            strategy = "com.rpajaziti.bookshop.custom.IdGenerator")
-    @Column(name = "id")
-    private String id;
+public class Customer extends BaseEntity {
 
     @Column(name = "first_name")
     private String firstName;
@@ -46,14 +39,6 @@ public class Customer {
 
     public Customer() {
 
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -123,7 +108,7 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
-                "id=" + id +
+                "id=" + this.getId() +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
